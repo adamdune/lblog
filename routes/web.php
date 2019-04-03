@@ -13,9 +13,6 @@
 Route::get('/', 'IndexController@index');
 Route::get('/dashboard', 'IndexController@dashboard');
 Route::get('/about', 'IndexController@about');
-Route::get('/test.php', function (){
-  return view('test');
-});
 Route::get('/profile/{id}', 'ProfileController@show');
 Route::put('/profile/{id}', 'ProfileController@update');
 

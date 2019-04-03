@@ -88,13 +88,15 @@ if(isset($_COOKIE['user_tz_off'])){
         <p>Blog Posts: {{$user->posts->total()}}</p>
         <p>Comments: {{count($user->comments)}}</p>
         <p>Joined: {{ date('d M Y', strtotime($user->created_at) + $timezone_offset) }}</p>
-        @auth @if(Auth::user()->id === $user->id)
+        @auth 
+        @if(Auth::user()->id === $user->id)
         <button class="btn btn-secondary" onclick="editProfileInit()" id="edit-btn"><i class="fas fa-pen mr-2"></i>Edit Profile</button>
         <div id="edit-btn-container" class="d-none">
           <button class="btn btn-success" onclick="editProfileSave()"><i class="fas fa-save mr-2"></i>Save Changes</button>
           <button class="btn btn-danger" onclick="editProfileCancel()"><i class="fas fa-times mr-2"></i>Cancel</button>
         </div>
-        @endif @endauth
+        @endif 
+        @endauth
       </div>
       <div class="col-12 col-md-8">
         @if(count($user->posts) > 0) 
@@ -103,9 +105,17 @@ if(isset($_COOKIE['user_tz_off'])){
         @endforeach 
         <div id="pagination" style="display: flex; justify-content: center;">{{$user->posts->links()}}</div>
         @else
-        <p class="lead">
-          This user has not made any post.
-        </p>
+        @auth
+        @if(Auth::user()->id === $user->id)
+          <p class="lead">You haven't made a post. Try adding one.</p>
+          <a class="btn btn-primary" href="posts/create"><i class="fas fa-plus mr-2"></i>Add Post</a>
+        @else
+          <p class="lead">This user has not made a post.</p>
+        @endif
+        @endauth
+        @guest
+          <p class="lead">This user has not made a post.</p>
+        @endguest
         @endif
       </div>
     </div>

@@ -31,7 +31,7 @@
         </ul>
       </li>
       <li>
-        <a href="https://www.mysql.com/">MySQL</a> was used as the database manager.
+        <a href="https://www.postgresql.org/">PostgreSQL</a> was used as the database manager because...well, it was free on Heroku. (MySQL was used initially.)
       </li>
       <li>
         Styled using <a href="https://getbootstrap.com/">Bootstrap</a> with minor variable customization.

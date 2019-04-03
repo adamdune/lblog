@@ -35,6 +35,7 @@
     <div id="pagination" style="display: flex; justify-content: center;">{{$posts->links()}}</div>
     @else
     <p class="lead">No posts to show at the moment. Try adding one.</p>
+    <a class="btn btn-primary" href="posts/create"><i class="fas fa-plus mr-2"></i>Add Post</a>
     @endif
   </div>
 </div>

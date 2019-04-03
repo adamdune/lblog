@@ -1,6 +1,6 @@
 <?php
 
-if (env('DB_CONNECTION')  !== 'mysql') {
+if (env('APP_ENV')  === 'heroku') {
     $url = parse_url(getenv("DATABASE_URL"));
 
     $host = $url["host"];
@@ -8,10 +8,10 @@ if (env('DB_CONNECTION')  !== 'mysql') {
     $password = $url["pass"];
     $database = substr($url["path"], 1);
 } else {
-    $host = '';
-    $username = '';
-    $password = '';
-    $database = '';
+    $host = env('DB_HOST', 'localhost');
+    $username = env('DB_USERNAME', 'forge');
+    $password = env('DB_PASSWORD', '');
+    $database = env('DB_DATABASE', 'forge');
 }
 
 return [
@@ -81,7 +81,7 @@ return [
             'password' => $password,
             'charset'  => 'utf8',
             'prefix'   => '',
-            'schema'   => 'public',
+            'schema'   => env('DB_PGSQL_SCHEMA','public'),
         ],
 
         'sqlsrv' => [

@@ -41,9 +41,8 @@
   </style>
   <div class="card mb-3">
     <div class="card-body">
-      @guest
-      <h3 class="card-title">{{$post->title}}</h3>
-      @endguest @auth @if(Auth::user()->id === $post->user_id)
+      @auth 
+      @if(Auth::user()->id === $post->user_id)
       <div class="row">
         <div class="col-sm-9">
           <h3 class="card-title">{{$post->title}}</h3>
@@ -57,7 +56,11 @@
       </div>
       @else
       <h3 class="card-title">{{$post->title}}</h3>
-      @endif @endauth
+      @endif
+      @endauth
+      @guest
+      <h3 class="card-title">{{$post->title}}</h3>
+      @endguest 
       <small>Written By: 
         <a href="/profile/{{$post->user->id}}">
           {{$post->user->name}}

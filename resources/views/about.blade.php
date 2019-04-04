@@ -40,6 +40,7 @@
         <a href="https://ckeditor.com/">CKEditor</a> was used as the WYSIWYG Editor.
       </li>
     </ul>
+    <h6>Source code can be found on <a href="https://github.com/adamdune/lblog">GitHub<i class="fab fa-github ml-1"></i></a>.</h6>
   </div>
 </div>
 @endsection

@@ -32,7 +32,8 @@ class AddOnDeleteToComments extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropForeign(['user_id', 'post_id']);
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['post_id']);
         });
     }
 }

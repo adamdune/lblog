@@ -3,6 +3,11 @@
 @endsection
  
 @section('content')
+<style>
+  .wb-break-all {
+    word-break: break-all;
+  }
+</style>
 <div class="card mb-3">
   <div class="card-body">
     <div class="display-4">Hello, {{auth()->user()->name}}!</div>
@@ -22,7 +27,7 @@
       <tbody>
         @foreach ($posts as $post)
         <tr>
-          <td><a href="/posts/{{$post->id}}">{{$post->title}}</a></td>
+          <td><a href="/posts/{{$post->id}}"><span class="wb-break-all">{{$post->title}}</span></a></td>
           <td>{{ date('d M Y, g:ia', strtotime($post->created_at)) }}</td>
           <td><a href="/posts/{{$post->id}}/edit" class="btn btn-secondary"><i class="fas fa-pen"></i><span class="d-none d-lg-inline ml-2">Edit</span></a></td>
           <td>
@@ -35,8 +40,7 @@
     <div id="pagination" style="display: flex; justify-content: center;">{{$posts->links()}}</div>
     @else
     <p class="lead">No posts to show at the moment. Try adding one.</p>
-    <a class="btn btn-primary" href="posts/create"><i class="fas fa-plus mr-2"></i>Add Post</a>
-    @endif
+    <a class="btn btn-primary" href="posts/create"><i class="fas fa-plus mr-2"></i>Add Post</a> @endif
   </div>
 </div>
   @include('inc.delete_confirm')

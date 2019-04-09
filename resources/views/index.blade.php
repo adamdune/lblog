@@ -6,6 +6,7 @@
       background: url(https://images.pexels.com/photos/1007025/pexels-photo-1007025.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
       background-position: center;
       background-size: 100% auto;
+      background-repeat: no-repeat;
     }
   </style>
   @if($posts->onFirstPage())

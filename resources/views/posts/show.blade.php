@@ -3,7 +3,7 @@
 @endsection
  
 @section('content')
-  <?php
+<?php
     if(isset($_COOKIE['user_tz_off'])){
       $timezone_offset = $_COOKIE['user_tz_off'] * 3600;
     } else {
@@ -38,29 +38,40 @@
     .div__comment-container {
       padding-left: var(--img-size);
     }
+
+    .d-flex {
+      display: flex;
+    }
+
+
+    .d-flex :nth-child(1) {
+      word-break: break-all;
+    }
+
+    .d-flex :nth-child(2) {
+      flex-shrink: 0;
+    }
   </style>
   <div class="card mb-3">
     <div class="card-body">
       @auth 
       @if(Auth::user()->id === $post->user_id)
-      <div class="row">
-        <div class="col-sm-9">
+      <div class="d-flex">
+        <div>
           <h3 class="card-title">{{$post->title}}</h3>
         </div>
-        <div class="col-sm-3">
-          <div class="float-right">
-            <a class="btn btn-secondary" href="/posts/{{$post->id}}/edit"><i class="fas fa-pen"></i><span class="d-none d-lg-inline ml-2">Edit</span></a>
-            <button class="btn btn-danger" onclick="prepareDeleteModal('post', '{{$post->title}}', '/posts/{{$post->id}}')"><i class="fas fa-trash"></i><span class="d-none d-lg-inline ml-2">Delete</span></button>
-          </div>
+        <div class="mx-2">
+          <a class="btn btn-secondary" href="/posts/{{$post->id}}/edit"><i class="fas fa-pen"></i><span class="d-none d-lg-inline ml-2">Edit</span></a>
+          <button class="btn btn-danger" onclick="prepareDeleteModal('post', '{{$post->title}}', '/posts/{{$post->id}}')"><i class="fas fa-trash"></i><span class="d-none d-lg-inline ml-2">Delete</span></button>
         </div>
       </div>
       @else
       <h3 class="card-title">{{$post->title}}</h3>
-      @endif
-      @endauth
+      @endif 
+      @endauth 
       @guest
       <h3 class="card-title">{{$post->title}}</h3>
-      @endguest 
+      @endguest
       <small>Written By: 
         <a href="/profile/{{$post->user->id}}">
           {{$post->user->name}}
@@ -68,9 +79,11 @@
       </a>
     </small>
       <br>
-      <small><i class="fas fa-clock mr-1 text-info"></i><span class="text-muted">{{ date('d M Y, g:ia', strtotime($post->created_at) + $timezone_offset)}}</span></small>      @if($post->edited)
+      <small><i class="fas fa-clock mr-1 text-info"></i><span class="text-muted">{{ date('d M Y, g:ia', strtotime($post->created_at) + $timezone_offset)}}</span></small>      
+      @if($post->edited)
       <small data-toggle="tooltip" data-placement="top" title="Last Edited On: {{ date('d M Y, g:ia', strtotime($post->updated_at) + $timezone_offset) }}"><span class="text-info">(Edited)</span>
-    </small> @endif
+    </small> 
+    @endif
       <p class="mt-3">
         {!!$post->body!!}
       </p>
@@ -89,7 +102,8 @@
         <input type="hidden" name="post_id" value={{$post->id}}>
         <button type="submit" class="btn btn-success"><i class="fas fa-save mr-2"></i>Save</button>
       </form>
-      @endauth @if(count($post->comments) > 0)
+      @endauth 
+      @if(count($post->comments) > 0)
       <ul class="list-group">
         @foreach($post->comments as $comment)
         <li class="list-group-item" id="comment-{{$comment->id}}">
@@ -103,22 +117,28 @@
               </a>
               <p class="mb-0">
                 <small><i class="fas fa-clock mr-1 text-info"></i><span class="text-muted">{{ date('d M Y, g:ia', strtotime($comment->created_at) + $timezone_offset) }}</span>
-              </small> @if($comment->edited)
+              </small> 
+              @if($comment->edited)
                 <small data-toggle="tooltip" data-placement="top" title="Last Edited On: {{ date('d M Y, g:ia', strtotime($comment->updated_at) + $timezone_offset) }}"><span class="text-info">(Edited)</span>
-                </small> @endif
+                </small> 
+                @endif
               </p>
             </div>
-            @auth @if(Auth::user()->id === $comment->user_id)
+            @auth 
+            @if(Auth::user()->id === $comment->user_id)
             <button class="btn btn-secondary mr-2" onclick="editComment('{{$comment->id}}')">
               <i class="fas fa-pen"></i><span class="d-none d-lg-inline ml-2">Edit</span>
             </button>
-            <button class="btn btn-danger" onclick="prepareDeleteModal('comment', '', '/comments/{{$comment->id}}')"><i class="fas fa-trash"></i><span class="d-none d-lg-inline ml-2">Delete</span></button>            @endif @endauth
+            <button class="btn btn-danger" onclick="prepareDeleteModal('comment', '', '/comments/{{$comment->id}}')"><i class="fas fa-trash"></i><span class="d-none d-lg-inline ml-2">Delete</span></button>            
+            @endif 
+            @endauth
           </div>
           <div class="div__comment-container ml-2" data-comment="">
             {!! $comment->comment !!}
           </div>
         </li>
-        @endforeach @auth
+        @endforeach 
+        @auth
         <form action="/comments/" method="post" class="mb-3" style="display: none;" id="form-comment-edit">
           @csrf @method('PUT')
           <div class="mb-2">
@@ -175,7 +195,6 @@
     $('#form-comment-edit').css("display", "block").appendTo($(`#comment-${id} [data-comment]`)[0]);
     }
   }
-
   </script>
   @include('inc.delete_confirm')
 @endsection

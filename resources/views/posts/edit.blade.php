@@ -21,7 +21,8 @@
 <script>
   ClassicEditor
   .create( document.querySelector( '#input-body' ), {
-    removePlugins: [ 'ImageUpload' ],
+    removePlugins: [ "CKFinderUploadAdapter", "CKFinder", "EasyImage", "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload" ],
+    toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote", "|", "insertTable", "mediaEmbed", "|", "undo", "redo"],
     placeholder: 'So, what\'s up?'
   })
   .catch( error => {
